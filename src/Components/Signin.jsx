@@ -1,5 +1,5 @@
 import style from 'styled-components'
-const LogIn = () => {
+const Signin = () => {
     return (
         <Container>
             <Content>
@@ -20,7 +20,7 @@ const LogIn = () => {
                            
                         </Input>
                         <Input>
-                        <img src="https://designcode.io/images/icons/envelope-blue.svg" alt="" />
+                        <img src="https://designcode.io/images/icons/lock-blue.svg" alt="" />
                             <input type="password" placeholder="Password" />
                         </Input>
                        
@@ -28,8 +28,8 @@ const LogIn = () => {
                     
                     <SingInButton onClick={''}>Sing In</SingInButton>
                     <Divider />
-                    <SingUp></SingUp>
-                    <ForgrtPass></ForgrtPass>
+                    <Links>Don't have an account? <a href="">Singup</a></Links>
+                    <Links>Forget password? <a href=''>Reset password</a></Links>
                 </SingInForm>
             </Content>
 
@@ -43,7 +43,7 @@ const Container = style.div`
     height:100vh;
     width:100vw;
     background: linear-gradient(20deg, rgba(46,209,210,1) 0%, rgba(50,255,159,1) 100%);
-    background-filter:blur(40px)saturation(70%);
+   
     justify-content:center;
     align-items:center;
     z-index:10;
@@ -54,21 +54,22 @@ const Content = style.div`
     
     position:relative;
     max-width:960px;
-    max-height:auto;
+    height:90%;
     display:grid;
     grid-template-columns:2fr .8fr;
     gap:40px;
     padding: 20px;
-     place-content:center;
+    place-items:center;
     background: rgb(71,187,174);
     background: linear-gradient(34deg, rgba(71,187,174,0.6955824566154587) 0%, rgba(107,103,212,0.15216508966867992) 100%);
-    box-shadow: rgb(255 255 255 / 20%) 0px 0px 0px 0.7px inset;
+    box-shadow: 1px 3px 18px 1px #000000;
     border-radius:10px;
     justify-items:center;
     z-index:10;
     @media(max-width: 900px){
          grid-template-columns: auto;
          margin:0 20px;
+         place-items:center;
      }
     
 `
@@ -90,6 +91,10 @@ const CoverImg = style.div`
         border-style:none;
     }
 
+    @media(max-width: 768px){
+        display:none;
+    }
+
 `
 const SingInForm = style.div`
    
@@ -99,6 +104,9 @@ const SingInForm = style.div`
     gap:20px;
     //max-width:320px;
    // margin-bottom:70.5%;
+   @media(max-width: 768px){
+    justify-content:center;
+}
 
 `
 const Title = style.h1`
@@ -125,7 +133,7 @@ const FormInput= style.form`
 `
 
 const Input = style.div`
-
+   
     display:flex;
     //justify-content:center;
     align-items:center;
@@ -158,22 +166,29 @@ const Input = style.div`
        // background-color:rgba(255, 255, 255, 0.5);
         //border-radius: 50%;
     }
+
+    &:hover,focus{
+        background-color:rgba(255, 255, 255, 0.5);
+    }
+
+  
     
 `
-const Icon = style.div`
-    width:36px;
-    height:36px;
-    display:block;
+// const Icon = style.div`
+//     width:36px;
+//     height:36px;
+//     display:block;
    
-    // position:absolute;
-    // top:0px;
-    background-color:rgba(255, 255, 255, 0.5);
-    border-radius: 50%;
+//     // position:absolute;
+//     // top:0px;
+//     background-color:rgba(255, 255, 255, 0.5);
+//     border-radius: 50%;
 
-`
+// `
 
 
 const SingInButton = style.button`
+    position:relative;
     height:34px;
     width:100%
     outline:none;
@@ -181,11 +196,39 @@ const SingInButton = style.button`
     border-radius:8px;
     background: rgb(29,127,143);
     background: linear-gradient(112deg, rgba(29,127,143,0.6091954022988506) 100%, rgba(0,255,174,0.23678160919540225) 100%);
-`
-const Divider = style.div``
-const SingUp = style.span``
-const ForgrtPass = style.span``
 
-export default LogIn
+    font-size:16px;
+    font-weight:bold;
+    line-height:24px;
+
+    &:hover,focus{
+        background-color:rgba(255, 255, 255, 0.5);
+    }
+    
+` 
+const Divider = style.div`
+    background:red;
+    display:inline-block;
+    background-image: linear-gradient(to left top, #051937, #004d7a, #008793, #00bf72, #a8eb12);
+    height:1.5px;
+    border-radius:2px;
+    width:100%;
+    top:0;
+ `
+const Links = style.h5`
+    font-size: normal;
+    font-weight:10px;
+    line-height: 5px;
+    
+    a{
+        text-color: #32F6A9;
+
+    }
+
+
+`
+
+
+export default Signin
 
 

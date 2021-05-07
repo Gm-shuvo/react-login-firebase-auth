@@ -1,10 +1,11 @@
-import LogIn from "./Components/LogIn";
+import Signin from "./Components/Signin";
 import  './app.css'
+import {} from 'react-router-dom'
 
 function App() {
   return (
     <>
-    <LogIn/>
+      <Signin/>
     </>
   );
 }
