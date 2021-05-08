@@ -1,6 +1,11 @@
 import style from 'styled-components'
 import {generatePath,Redirect,Link } from 'react-router-dom'
+
+import {useRef} from 'react'
 const Signin = () => {
+    const emailRef = useRef()
+    const passwordRef = useRef()
+    
     const handleSignin=()=>{
        <Redirect to={'/user/auth/signup'}/> 
     }
@@ -17,11 +22,11 @@ const Signin = () => {
                     <FormInput>
                         <Input>
                             <img src="https://designcode.io/images/icons/envelope-blue.svg" alt="" />
-                            <input type="email" placeholder="Email address" />
+                            <input type="email" placeholder="Email address" ref={emailRef} />
                         </Input>
                         <Input>
-                            <img src="https://designcode.io/images/icons/lock-blue.svg" alt="" />
-                            <input type="password" placeholder="Password" />
+                            <img src="https://designcode.io/images/icons/lock-blue.svg" alt=""/>
+                            <input type="password" placeholder="Password" ref={passwordRef}/>
                         </Input>
                        
                     </FormInput>
