@@ -1,5 +1,10 @@
 import style from 'styled-components'
+import {generatePath,Redirect,Link } from 'react-router-dom'
 const Signin = () => {
+    const handleSignin=()=>{
+       <Redirect to={'/user/auth/signup'}/> 
+    }
+
     return (
         <Container>
             <Content>
@@ -11,16 +16,11 @@ const Signin = () => {
                     <Paragraph>Access to 120+ hours of courses, tutorials and livestreams</Paragraph>
                     <FormInput>
                         <Input>
-                           
-                                <img src="https://designcode.io/images/icons/envelope-blue.svg" alt="" />
-                         
-                            
-                                <input type="email" placeholder="Email address" />
-                          
-                           
+                            <img src="https://designcode.io/images/icons/envelope-blue.svg" alt="" />
+                            <input type="email" placeholder="Email address" />
                         </Input>
                         <Input>
-                        <img src="https://designcode.io/images/icons/lock-blue.svg" alt="" />
+                            <img src="https://designcode.io/images/icons/lock-blue.svg" alt="" />
                             <input type="password" placeholder="Password" />
                         </Input>
                        
@@ -28,7 +28,7 @@ const Signin = () => {
                     
                     <SingInButton onClick={''}>Sing In</SingInButton>
                     <Divider />
-                    <Links>Don't have an account? <a href="">Singup</a></Links>
+                    <Links>Don't have an account? <Link to="/user/auth/signup">Singup</Link></Links>
                     <Links>Forget password? <a href=''>Reset password</a></Links>
                 </SingInForm>
             </Content>
