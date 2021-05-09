@@ -22,21 +22,27 @@ export function AuthProvider  ({children}){
         auth.signInWithEmailAndPassword(email,password)
     }
 
+    //firebase signIn Function
+    function signout (){
+        auth.signOut()
+    }
+
 
 
     useEffect(() => {
-        const unsubscribe = auth.onAuthStateChanged((user) => {
+         auth.onAuthStateChanged((user) => {
             setcurrentUser(user)
             setloadding(false)
         })
-        return unsubscribe
+        
     }, [])
 
 
     const value ={
         currentUser,
         signup,
-        signin
+        signin,
+        signout
     }
 
 

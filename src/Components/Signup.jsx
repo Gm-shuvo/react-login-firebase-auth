@@ -1,5 +1,5 @@
 import style from 'styled-components'
-import {Redirect,Link } from 'react-router-dom'
+import {Redirect,Link, useHistory } from 'react-router-dom'
 import {useContext, useRef, useState} from 'react'
 
 import {AuthContext} from '../Context/AuthContext'
@@ -12,12 +12,14 @@ const Signup = () => {
     const passwordRef = useRef()
     const comfirmPasswordRef = useRef()
 
-    const {signup,currentUser} = useContext(AuthContext)
+    const {signup} = useContext(AuthContext)
+
+    const history= useHistory()
 
 
     const handleSignup= async(e)=>{
         e.preventDefault()
-        console.log(emailRef.current.value);
+       // console.log(emailRef.current.value);
         if (passwordRef.current.value !== comfirmPasswordRef.current.value) {
              setError('Enter the correct password')
         }
@@ -26,8 +28,8 @@ const Signup = () => {
             setError('')
             setIsLoading(true)
             await signup(emailRef.current.value, passwordRef.current.value)
-             console.log('Complete signup');
-            
+            console.log('Complete signup');
+           history.push("/")
         } catch (err) {
             setError('Failed to create an account')
         }
@@ -96,7 +98,7 @@ const Content = style.div`
     gap:40px;
     padding: 20px;
     place-items:center;
-    background: rgb(71,187,174);
+   
     background: linear-gradient(34deg, rgba(71,187,174,0.6955824566154587) 0%, rgba(107,103,212,0.15216508966867992) 100%);
     box-shadow: 1px 3px 18px 1px #000000;
     border-radius:10px;

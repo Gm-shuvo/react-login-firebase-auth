@@ -1,5 +1,5 @@
 import style from 'styled-components'
-import {Redirect,Link } from 'react-router-dom'
+import {Link, useHistory } from 'react-router-dom'
 import {useContext, useRef, useState} from 'react'
 import {AuthContext} from '../Context/AuthContext'
 
@@ -13,6 +13,8 @@ const Signin = () => {
 
     const {signin} = useContext(AuthContext)
 
+    const history  = useHistory()
+
     const handleSignin=async(e)=>{
         e.preventDefault()
 
@@ -20,16 +22,15 @@ const Signin = () => {
             setError('')
             setisLoading(true)
             await signin(emailRef.current.value, passwordRef.current.value)
-             console.log('Complete Login');
+            console.log('Complete Login');
+            history.push("/")
             
         } catch (err) {
             setError('Failed to create an account')
         }
         setisLoading(false)
 
-
     }
-
     return (
         <Container>
             <Content>
