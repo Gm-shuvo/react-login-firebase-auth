@@ -12,7 +12,7 @@ const Signup = () => {
     const passwordRef = useRef()
     const comfirmPasswordRef = useRef()
 
-    const {signup} = useContext(AuthContext)
+    const {signup,currentUser} = useContext(AuthContext)
 
 
     const handleSignup= async(e)=>{
@@ -26,7 +26,7 @@ const Signup = () => {
             setError('')
             setIsLoading(true)
             await signup(emailRef.current.value, passwordRef.current.value)
-           
+             console.log('Complete signup');
             
         } catch (err) {
             setError('Failed to create an account')
@@ -44,6 +44,7 @@ const Signup = () => {
                 <SingInForm>
                     <Title>Sing up</Title>
                     <Paragraph>Access to 120+ hours of courses, tutorials and livestreams</Paragraph>
+                    {/* {currentUser && currentUser.email} */}
                     <FormInput onSubmit={handleSignup}>
                         <Input>
                             <img src="https://designcode.io/images/icons/envelope-blue.svg" alt="" />
