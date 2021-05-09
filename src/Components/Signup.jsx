@@ -1,14 +1,38 @@
 import style from 'styled-components'
 import {Redirect,Link } from 'react-router-dom'
+import {useContext, useRef, useState} from 'react'
 
-import {useRef} from 'react'
+import {AuthContext} from '../Context/AuthContext'
 
 const Signup = () => {
+    const [error, setError] = useState('')
+    const [isLoading, setIsLoading] = useState(false)
+
     const emailRef = useRef()
     const passwordRef = useRef()
     const comfirmPasswordRef = useRef()
-    const handleSignup=()=>{
-       <Redirect to={'/'}/> 
+
+    const {signup} = useContext(AuthContext)
+
+
+    const handleSignup= async(e)=>{
+        e.preventDefault()
+        console.log(emailRef.current.value);
+        if (passwordRef.current.value !== comfirmPasswordRef.current.value) {
+             setError('Enter the correct password')
+        }
+
+        try {
+            setError('')
+            setIsLoading(true)
+            await signup(emailRef.current.value, passwordRef.current.value)
+           
+            
+        } catch (err) {
+            setError('Failed to create an account')
+        }
+        setIsLoading(false)
+      //console.log(error);
     }
 
     return (
@@ -20,22 +44,22 @@ const Signup = () => {
                 <SingInForm>
                     <Title>Sing up</Title>
                     <Paragraph>Access to 120+ hours of courses, tutorials and livestreams</Paragraph>
-                    <FormInput onSubmit={''}>
+                    <FormInput onSubmit={handleSignup}>
                         <Input>
-                            <img src="https://designcode.io/images/icons/envelope-blue.svg" alt="" ref={emailRef} />
-                            <input type="email" placeholder="Email address" />
+                            <img src="https://designcode.io/images/icons/envelope-blue.svg" alt="" />
+                            <input type="email" placeholder="Email address" required  ref={emailRef} />
                         </Input>
                      
                         <Input>
-                            <img src="https://designcode.io/images/icons/lock-blue.svg" alt=""  ref={passwordRef}/>
-                            <input type="password" placeholder="Password" />
+                            <img src="https://designcode.io/images/icons/lock-blue.svg" alt="" />
+                            <input type="password" placeholder="Password" required ref={passwordRef}/>
                         </Input>
                         <Input>
                             <img src="https://designcode.io/images/icons/lock-blue.svg" alt=""/>
-                            <input type="password" placeholder="Comfirm Password"  ref={comfirmPasswordRef}/>
+                            <input type="password" placeholder="Comfirm Password" required  ref={comfirmPasswordRef} />
                         </Input>
 
-                        <SingInButton onClick={''}>Sing up</SingInButton>     
+                        <SingInButton disabled={isLoading} type='submit'>Sing up</SingInButton>     
                     </FormInput>
                     
                     <Divider />
@@ -205,8 +229,8 @@ const SingInButton = style.button`
     outline:none;
     border:none;
     border-radius:8px;
-    background: rgb(29,127,143);
-    background: linear-gradient(112deg, rgba(29,127,143,0.6091954022988506) 100%, rgba(0,255,174,0.23678160919540225) 100%);
+   
+    background: linear-gradient(112deg, #0b756c 100%, rgba(0,255,174,0.23678160919540225) 100%);
 
     font-size:16px;
     font-weight:bold;

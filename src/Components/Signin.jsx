@@ -1,13 +1,33 @@
 import style from 'styled-components'
-import {generatePath,Redirect,Link } from 'react-router-dom'
+import {Redirect,Link } from 'react-router-dom'
+import {useContext, useRef, useState} from 'react'
+import {AuthContext} from '../Context/AuthContext'
 
-import {useRef} from 'react'
+
 const Signin = () => {
     const emailRef = useRef()
     const passwordRef = useRef()
-    
-    const handleSignin=()=>{
-       <Redirect to={'/user/auth/signup'}/> 
+
+    const [isLoading, setisLoading] = useState(false)
+    const [error, setError] = useState('')
+
+    const {signin} = useContext(AuthContext)
+
+    const handleSignin=async(e)=>{
+        e.preventDefault()
+
+        try {
+            setError('')
+            setisLoading(true)
+            await signin(emailRef.current.value, passwordRef.current.value)
+             console.log('Complete Login');
+            
+        } catch (err) {
+            setError('Failed to create an account')
+        }
+        setisLoading(false)
+
+        
     }
 
     return (
@@ -19,19 +39,19 @@ const Signin = () => {
                 <SingInForm>
                     <Title>Sing in</Title>
                     <Paragraph>Access to 120+ hours of courses, tutorials and livestreams</Paragraph>
-                    <FormInput>
+                    <FormInput onSubmit={handleSignin}>
                         <Input>
                             <img src="https://designcode.io/images/icons/envelope-blue.svg" alt="" />
-                            <input type="email" placeholder="Email address" ref={emailRef} />
+                            <input type="email" placeholder="Email address" required ref={emailRef} />
                         </Input>
                         <Input>
                             <img src="https://designcode.io/images/icons/lock-blue.svg" alt=""/>
-                            <input type="password" placeholder="Password" ref={passwordRef}/>
+                            <input type="password" placeholder="Password" required ref={passwordRef}/>
                         </Input>
                        
+                        <SingInButton disabled={isLoading} type= 'submit'>Sing In</SingInButton>
                     </FormInput>
                     
-                    <SingInButton onClick={''}>Sing In</SingInButton>
                     <Divider />
                     <Links>Don't have an account? <Link to="/user/auth/signup">Singup</Link></Links>
                     <Links>Forget password? <a href=''>Reset password</a></Links>

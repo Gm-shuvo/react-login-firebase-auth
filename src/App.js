@@ -10,14 +10,14 @@ function App() {
   return (
     <>
        
+        <AuthProvider>
           <Router>
               <Switch>
-              <AuthProvider>
                 <Route  path="/user/auth/signin" component={Signin}/>
                 <Route  path="/user/auth/signup" component={signup}/>
-            </AuthProvider>
               </Switch>
           </Router>    
+        </AuthProvider>
     </>
   );
 }
