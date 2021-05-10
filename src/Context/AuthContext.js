@@ -1,4 +1,5 @@
 import React, {useContex, useEffect, useState} from 'react'
+import { Redirect, useHistory } from 'react-router'
 import {auth} from '../Utils/firebase'
 
 
@@ -11,8 +12,13 @@ export function  useAuth  (){
 }
 
 export function AuthProvider  ({children}){
-    const [currentUser, setcurrentUser] = useState()
+    const [currentUser, setcurrentUser] = useState('')
     const [loadding, setloadding] = useState(true)
+    console.log(`before ${currentUser}`);
+
+    const history = useHistory()
+
+
     //firebase signup Function
      function signup (email,password){
         auth.createUserWithEmailAndPassword(email,password)
@@ -30,25 +36,33 @@ export function AuthProvider  ({children}){
 
 
     useEffect(() => {
-         auth.onAuthStateChanged((user) => {
+      auth.onAuthStateChanged((user) =>{
+         if (user){
+           
             setcurrentUser(user)
-            setloadding(false)
-        })
+            console.log(user );
+            history.push('/')
+        }else{
+            history.push('/user/auth/signin')  
+        }
         
-    }, [])
+      })
+     
+    },[])
 
 
     const value ={
         currentUser,
         signup,
         signin,
-        signout
+        signout,
+        setloadding
     }
 
 
     return (
         <AuthContext.Provider value={value} >
-            {!loadding && children}
+            { children}
         </AuthContext.Provider>
 
     )

@@ -5,15 +5,15 @@ import {AuthContext} from '../Context/AuthContext'
 
 
 const Signin = () => {
-    const emailRef = useRef()
-    const passwordRef = useRef()
+    const emailRef = useRef('')
+    const passwordRef = useRef('')
 
     const [isLoading, setisLoading] = useState(false)
     const [error, setError] = useState('')
 
-    const {signin} = useContext(AuthContext)
+    const {signin, currentUser, setloadding} = useContext(AuthContext)
 
-    const history  = useHistory()
+    
 
     const handleSignin=async(e)=>{
         e.preventDefault()
@@ -21,14 +21,13 @@ const Signin = () => {
         try {
             setError('')
             setisLoading(true)
-            await signin(emailRef.current.value, passwordRef.current.value)
-            console.log('Complete Login');
-            history.push("/")
-            
+            await signin (emailRef.current.value, passwordRef.current.value)
+           
+
         } catch (err) {
             setError('Failed to create an account')
         }
-        setisLoading(false)
+      
 
     }
     return (
